@@ -1,254 +1,233 @@
-# MA4034 Time Series Analysis Assignment
+# Time Series Analysis and Model Selection
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+A comprehensive, modular time series analysis toolkit designed for ARIMA modeling, forecasting, and statistical evaluation of time series data.
 
-A comprehensive time series analysis toolkit for the MA4034 assignment, implementing ARIMA modeling with complete statistical analysis, model diagnostics, and forecasting capabilities.
+## 🎯 Project Overview
 
-## 🚀 Features
+This project provides a complete framework for time series analysis including:
+- **Data Loading & Preprocessing**: Excel/CSV data handling with validation
+- **Exploratory Analysis**: Descriptive statistics and visualization
+- **Stationarity Testing**: ADF tests with automatic differencing
+- **Model Selection**: ARIMA order identification using AIC/BIC
+- **Diagnostics**: Residual analysis and model validation
+- **Forecasting**: Out-of-sample predictions with evaluation metrics
+- **Reporting**: Automated report generation with visualizations
 
-- **Complete ARIMA Pipeline**: From data exploration to forecasting
-- **Automated Model Selection**: Grid search with AIC/BIC optimization
-- **Comprehensive Diagnostics**: Ljung-Box, Jarque-Bera, and residual analysis
-- **Professional Reporting**: Automated PDF and text report generation
-- **Dual Dataset Analysis**: Comparative analysis across multiple datasets
-- **Rich Visualizations**: Statistical plots and forecast visualizations
-- **Robust Error Handling**: Comprehensive validation and error management
+## 🚀 Quick Start
 
-## 📋 Requirements
+### Installation
 
-### System Requirements
-- Python 3.8 or higher
-- 4GB RAM minimum (8GB recommended)
-- 500MB free disk space
-
-### Dependencies
-See `requirements.txt` for complete list. Key packages:
-- pandas >= 1.3.0
-- numpy >= 1.21.0
-- matplotlib >= 3.4.0
-- statsmodels >= 0.12.0
-- scikit-learn >= 1.0.0
-
-## 🛠 Installation
-
-### Method 1: Clone and Install
 ```bash
-git clone https://github.com/yourusername/ma4034-time-series-analysis.git
-cd ma4034-time-series-analysis
+# Clone the repository
+git clone https://github.com/randikapra/Time-Series-Analysis-and-Model-Selection.git
+cd time_series_analysis
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### Method 2: Direct Installation (if packaged)
-```bash
-pip install ma4034-time-series-analysis
-```
-
-## 🏃‍♂️ Quick Start
-
 ### Basic Usage
+
 ```python
+from src.data_loader import DataLoader
 from src.time_series_analyzer import TimeSeriesAnalyzer
-import pandas as pd
+from src.report_generator import ReportGenerator
 
 # Load your data
-df = pd.read_excel('data/raw/MA4034_Assignment_S8_20.xlsx')
+loader = DataLoader()
+df = loader.load_excel_data('data/raw/your_data.xlsx')
 
-# Initialize analyzer
-analyzer = TimeSeriesAnalyzer(df, column_name='200472B')
+# Run analysis
+analyzer = TimeSeriesAnalyzer(df, 'your_column')
+results = analyzer.run_complete_analysis()
 
-# Run complete analysis
-analyzer.exploratory_analysis()
-analyzer.stationarity_test()
-analyzer.make_stationary()
-analyzer.identify_order()
-analyzer.model_selection()
-analyzer.fit_model()
-analyzer.model_diagnostics()
-analyzer.forecast_and_evaluate()
+# Generate reports
+reporter = ReportGenerator()
+reporter.generate_comprehensive_report(results)
 ```
 
-### Command Line Usage
-```bash
-# Run complete analysis on both datasets
-python scripts/run_analysis.py --data data/raw/MA4034_Assignment_S8_20.xlsx --mode complete
+## 📊 Features
 
-# Analyze specific column
-python scripts/run_analysis.py --data data/raw/MA4034_Assignment_S8_20.xlsx --column 200472B --mode single
+### Core Analysis Features
+- ✅ **Automated Stationarity Testing** - ADF test with auto-differencing
+- ✅ **ARIMA Model Selection** - Grid search with AIC/BIC optimization
+- ✅ **Comprehensive Diagnostics** - Ljung-Box, Jarque-Bera tests
+- ✅ **Forecast Evaluation** - MSE, MAE, RMSE metrics
+- ✅ **Visual Analytics** - 15+ plot types for complete analysis
+
+### Advanced Features
+- 🔄 **Multi-Dataset Comparison** - Compare models across datasets
+- 📈 **Automated Forecasting** - 12-period ahead predictions
+- 📊 **Interactive Visualizations** - High-quality matplotlib/seaborn plots
+- 📋 **Professional Reporting** - PDF reports with embedded plots
+- 🧪 **Statistical Validation** - Comprehensive model diagnostics
+
+## 📁 Project Structure
+
 ```
-
-## 📊 Data Requirements
-
-### Supported Formats
-- Excel files (.xlsx, .xls)
-- CSV files (.csv)
-- Text files (.txt)
-
-### Data Structure
-- Time series data in columns
-- Numerical values only
-- Missing values handled automatically
-- Minimum 30 observations recommended
-
-### Example Data Format
+time_series_analysis/
+├── src/                    # Core analysis modules
+├── utils/                  # Utility functions
+├── data/                   # Data storage
+├── outputs/                # Generated results
+├── notebooks/              # Jupyter notebooks
+└── tests/                  # Unit tests
 ```
-Column_Name
-12.34
-15.67
-18.90
-...
-```
-
-## 📈 Analysis Workflow
-
-1. **Data Loading & Validation**
-   - Automatic format detection
-   - Missing value handling
-   - Data type validation
-
-2. **Exploratory Data Analysis**
-   - Descriptive statistics
-   - Distribution analysis
-   - Time series plotting
-
-3. **Stationarity Testing**
-   - Augmented Dickey-Fuller test
-   - Automatic differencing if needed
-   - Transformation validation
-
-4. **Model Identification**
-   - ACF/PACF analysis
-   - Automated order selection
-   - Grid search optimization
-
-5. **Model Estimation**
-   - Maximum likelihood estimation
-   - Parameter significance testing
-   - Model comparison (AIC/BIC)
-
-6. **Diagnostic Testing**
-   - Residual analysis
-   - Ljung-Box test
-   - Normality testing
-
-7. **Forecasting & Evaluation**
-   - Out-of-sample forecasting
-   - Performance metrics (MSE, MAE, RMSE)
-   - Confidence intervals
-
-## 📁 Output Files
-
-### Generated Reports
-- `comprehensive_final_report.pdf` - Complete analysis with all plots
-- `comprehensive_final_report.txt` - Text version of the report
-- `model_comparison.txt` - Comparative analysis (dual datasets)
-- `[dataset]_analysis_report.txt` - Individual dataset reports
-
-### Visualization Files
-- `[dataset]_exploratory_analysis.png` - Data exploration plots
-- `[dataset]_stationarity_transformation.png` - Stationarity analysis
-- `[dataset]_acf_pacf_plots.png` - Autocorrelation analysis
-- `[dataset]_model_diagnostics.png` - Diagnostic plots
-- `[dataset]_forecast_plot.png` - Forecasting visualization
 
 ## 🔧 Configuration
 
-### Analysis Configuration (`config/analysis_config.yaml`)
-```yaml
-arima_orders:
-  p_range: [0, 5]
-  d_range: [0, 2] 
-  q_range: [0, 5]
+Edit `config.py` to customize:
 
-forecasting:
-  periods: 12
-  alpha: 0.05
+```python
+# Analysis parameters
+FORECAST_PERIODS = 12
+SIGNIFICANCE_LEVEL = 0.05
+MAX_AR_ORDER = 5
+MAX_MA_ORDER = 5
 
-diagnostics:
-  ljung_box_lags: 10
-  significance_level: 0.05
+# Output settings
+FIGURE_SIZE = (12, 8)
+DPI = 300
+PLOT_STYLE = 'seaborn-v0_8'
 ```
 
-### Plotting Configuration (`config/plotting_config.yaml`)
-```yaml
-figure_size: [12, 8]
-dpi: 300
-style: 'default'
-color_palette: 'husl'
+## 📖 Usage Examples
+
+### 1. Single Dataset Analysis
+
+```python
+# Load and analyze single time series
+analyzer = TimeSeriesAnalyzer(df, 'sales_data')
+results = analyzer.run_complete_analysis()
+
+print(f"Best Model: ARIMA{results['best_order']}")
+print(f"AIC: {results['aic']:.4f}")
 ```
+
+### 2. Multi-Dataset Comparison
+
+```python
+# Compare multiple datasets
+from src.model_comparator import ModelComparator
+
+comparator = ModelComparator()
+comparison = comparator.compare_datasets([df1, df2], 'target_column')
+comparator.generate_comparison_report(comparison)
+```
+
+### 3. Custom Analysis Pipeline
+
+```python
+# Build custom analysis pipeline
+analyzer = TimeSeriesAnalyzer(df, 'column_name')
+
+# Step-by-step analysis
+analyzer.exploratory_analysis()
+analyzer.stationarity_test()
+analyzer.identify_order()
+analyzer.fit_model()
+analyzer.model_diagnostics()
+forecasts = analyzer.forecast_and_evaluate()
+```
+
+## 📊 Generated Outputs
+
+### Visualizations
+- **Exploratory Plots**: Time series, distributions, seasonality
+- **Stationarity Plots**: Before/after differencing comparisons
+- **ACF/PACF Plots**: Correlation function analysis
+- **Diagnostic Plots**: Residual analysis, Q-Q plots
+- **Forecast Plots**: Predictions with confidence intervals
+
+### Reports
+- **Analysis Reports**: Detailed statistical summaries
+- **Comparison Reports**: Multi-dataset model comparisons
+- **PDF Reports**: Professional documents with embedded plots
+- **Summary Statistics**: Key metrics and findings
 
 ## 🧪 Testing
 
 Run the test suite:
+
 ```bash
-pytest tests/ -v --cov=src/
+# Run all tests
+python -m pytest tests/
+
+# Run specific test
+python -m pytest tests/test_analyzer.py
+
+# Run with coverage
+python -m pytest tests/ --cov=src
 ```
 
-Run specific tests:
-```bash
-pytest tests/test_analyzer.py -v
-```
+## 📚 Dependencies
 
-## 📚 Documentation
+### Core Libraries
+- `pandas` >= 1.5.0 - Data manipulation
+- `numpy` >= 1.21.0 - Numerical computing
+- `statsmodels` >= 0.13.0 - Statistical modeling
+- `scikit-learn` >= 1.1.0 - Machine learning metrics
 
-- [Methodology Guide](docs/methodology.md) - Detailed statistical methodology
-- [API Reference](docs/api_reference.md) - Complete code documentation
-- [User Guide](docs/user_guide.md) - Comprehensive usage examples
+### Visualization
+- `matplotlib` >= 3.5.0 - Plotting
+- `seaborn` >= 0.11.0 - Statistical visualization
+
+### Additional
+- `scipy` >= 1.9.0 - Scientific computing
+- `jupyter` >= 1.0.0 - Notebook environment
+
+## 🎯 Academic Use
+
+This project is designed for academic assignments and research. Features include:
+
+- **Reproducible Analysis**: Consistent methodology across datasets
+- **Statistical Rigor**: Proper hypothesis testing and validation
+- **Professional Reporting**: Academic-standard documentation
+- **Modular Design**: Easy to extend and customize
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Setup
-```bash
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Install pre-commit hooks
-pre-commit install
-
-# Run code formatting
-black src/ tests/
-```
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
+## 🔍 Troubleshooting
 
-**Your Name**
-- Email: your.email@university.edu
-- Student ID: Your_ID
-- Course: MA4034 - Time Series Analysis
-- University: Your University Name
+### Common Issues
 
-## 🙏 Acknowledgments
+**Data Loading Problems**
+```python
+# Ensure correct file path and format
+loader = DataLoader()
+loader.validate_data_format('your_file.xlsx')
+```
 
-- Course Instructor: [Instructor Name]
-- MA4034 Course Materials
-- Statsmodels Documentation
-- Python Time Series Analysis Community
+**Model Convergence Issues**
+```python
+# Try different starting parameters
+analyzer.fit_model(method='css-mle', maxiter=1000)
+```
+
+**Memory Issues with Large Datasets**
+```python
+# Use chunked processing
+analyzer.process_in_chunks(chunk_size=1000)
+```
 
 ## 📞 Support
 
-If you encounter any issues or have questions:
-
-1. Check the [documentation](docs/)
-2. Search existing [issues](https://github.com/yourusername/ma4034-time-series-analysis/issues)
-3. Create a new issue with detailed description
-4. Contact the author via email
-
-## 🔄 Version History
-
-- **v1.0.0** - Initial release with complete ARIMA analysis pipeline
-- **v1.1.0** - Added comparative analysis for dual datasets
-- **v1.2.0** - Enhanced reporting and visualization features
+For questions and support:
+- Create an issue on GitHub
+- Check the documentation in `/docs`
+- Review example notebooks in `/notebooks`
 
 ---
 
-*This project is developed as part of the MA4034 Time Series Analysis course assignment.*
+**Built for MA4034 Time Series Analysis Assignment**  
+*Professional, modular, and academically rigorous time series analysis toolkit*
